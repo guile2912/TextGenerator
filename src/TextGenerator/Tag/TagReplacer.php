@@ -63,6 +63,13 @@ class TagReplacer implements TagReplacerInterface
         if (is_scalar($value)) {
             $this->escapedTags['@' . $name] = $value;
         }
+
+        //Recursivity for arrays
+        if(is_array($value)){
+            foreach($value as $k => $v){
+                $this->addTag($name . '.'. $k, $v );
+            }
+        }
     }
 
     /**
